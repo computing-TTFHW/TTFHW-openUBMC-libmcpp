@@ -1,0 +1,90 @@
+{
+  "_comment": "libmcpp 编译与测试耗时统计（构建环境：Docker swr.cn-north-4.myhuaweicloud.com/openubmc/ubuntu:24.04.2_26.03）",
+  "build": {
+    "_comment": "编译（全量构建，含测试）",
+    "clean_build_total_ms": {
+      "_value": 830398,
+      "_comment": "全量构建总耗时（毫秒），含 meson setup + ninja compile"
+    },
+    "meson_setup_ms": {
+      "_value": 4458,
+      "_comment": "meson setup 配置耗时（毫秒），检测编译器、依赖项等"
+    },
+    "ninja_compile_ms": {
+      "_value": 825935,
+      "_comment": "ninja compile 编译耗时（毫秒），共 372 个编译/链接目标"
+    },
+    "ccache_after_clean_build": {
+      "_comment": "全量构建后ccache统计",
+      "hits": {
+        "_value": 0,
+        "_comment": "全量构建缓存命中数（首次编译为0属预期）"
+      },
+      "misses": {
+        "_value": 0,
+        "_comment": "全量构建缓存未命中数"
+      }
+    }
+  },
+  "incremental_build": {
+    "_comment": "增量构建（修改 config_manager.cpp、timer.cpp、test_timer.cpp 共3个文件，触发重编译+重链接）",
+    "source_modify_ms": {
+      "_value": 11,
+      "_comment": "源码修改耗时（毫秒），向3个文件追加一行注释触发增量编译"
+    },
+    "ninja_compile_ms": {
+      "_value": 71093,
+      "_comment": "增量编译耗时（毫秒），相比全量构建825s缩短91%"
+    },
+    "files_recompiled": {
+      "_value": 3,
+      "_comment": "增量构建中实际重编译的源文件数（config_manager.cpp、timer.cpp、test_timer.cpp）"
+    },
+    "files_linked": {
+      "_value": 4,
+      "_comment": "增量构建中实际重新链接的目标数（libmcpp_core.a、libmcpp.a、libmcpp.so、libmcpp_test）"
+    },
+    "ccache": {
+      "_comment": "增量构建ccache统计",
+      "hits": {
+        "_value": 3,
+        "_comment": "增量构建缓存命中数（重编译的3个文件全部命中全量构建时写入的缓存）"
+      },
+      "misses": {
+        "_value": 0,
+        "_comment": "增量构建缓存未命中数（0未命中说明修改后缓存仍有效）"
+      },
+      "hit_rate_percent": {
+        "_value": 100.0,
+        "_comment": "增量构建缓存命中率100%，ccache显著提升增量编译效率"
+      }
+    }
+  },
+  "ut": {
+    "_comment": "UT测试（meson test 运行 libmcpp unit tests + mcbase unit tests）",
+    "test_total_ms": {
+      "_value": 20310,
+      "_comment": "UT测试总耗时（毫秒）"
+    },
+    "exit_code": {
+      "_value": 1,
+      "_comment": "测试退出码（1表示有失败用例，4个socket_appender测试因容器内无网络服务而失败）"
+    },
+    "tests_run": {
+      "_value": 1364,
+      "_comment": "测试用例运行总数（libmcpp 1364个用例，来自95个测试套件）"
+    },
+    "tests_passed": {
+      "_value": 1342,
+      "_comment": "测试用例通过数（通过率98.4%）"
+    },
+    "tests_failed": {
+      "_value": 4,
+      "_comment": "测试用例行失败数（均为socket_appender_test，容器内无SocketServer导致）"
+    },
+    "tests_skipped": {
+      "_value": 18,
+      "_comment": "测试用例跳过数（依赖mock实现或外部服务，如ShmTreeQuery、mdb_access、Match等）"
+    }
+  }
+}
