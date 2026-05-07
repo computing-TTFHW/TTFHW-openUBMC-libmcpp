@@ -1,0 +1,205 @@
+{
+  "meta": {
+    "version": "1.0",
+    "generated_at": "2026-05-06T15:59:47+00:00",
+    "tool_version": "ttfhw-verify v1.0"
+  },
+  "repo_info": {
+    "name": "libmcpp",
+    "url": "https://gitcode.com/openUBMC/libmcpp.git",
+    "clone_duration_seconds": 1.6,
+    "build_system": "meson+ninja",
+    "language": "C++17",
+    "license": "Mulan PSL v2"
+  },
+  "documentation_checklist": {
+    "readme_exists": true,
+    "readme_has_build_instructions": true,
+    "docs_directory_exists": true,
+    "devcontainer_exists": false,
+    "dockerfile_exists": false,
+    "cmake_exists": false,
+    "meson_build_exists": true,
+    "quick_start_examples": true,
+    "api_reference": true
+  },
+  "image_selection": {
+    "method": "user_selected",
+    "selected_image": "swr.cn-north-4.myhuaweicloud.com/openubmc/ubuntu:24.04.2_26.03",
+    "tool_versions": {
+      "gcc": "9.5.0",
+      "meson": "1.10.2",
+      "ninja": "1.11.1",
+      "cmake": "3.28.3",
+      "boost": "1.83.0",
+      "gtest": "1.14.0"
+    }
+  },
+  "dependency_stats": {
+    "build_dependencies": [
+      "libboost-all-dev (1.83.0)",
+      "libgtest-dev (1.14.0)",
+      "ninja-build (1.11.1)",
+      "pkg-config (1.8.1)",
+      "libdbus-1-dev (1.14.10)",
+      "libglib2.0-dev (2.80.0)",
+      "meson (1.10.2)",
+      "cmake (3.28.3)",
+      "g++"
+    ],
+    "subprojects": [
+      "mcbase (bundled in libraries/)"
+    ],
+    "skipped_optional": [
+      "lua5.3 - not found, Lua modules and tests skipped",
+      "securec - feature disabled, using builtin"
+    ],
+    "dependency_install_duration_seconds": 45
+  },
+  "build_result": {
+    "status": "success",
+    "build_system": "meson setup builddir && ninja -j 4 -C builddir",
+    "total_targets": 372,
+    "artifacts": [
+      "builddir/tests/libmcpp_test (293MB)",
+      "builddir/libraries/mcbase/src/libmcbase.so.1.0.0",
+      "builddir/examples/module_test/module_test_example"
+    ],
+    "error": null,
+    "build_duration_seconds": 240
+  },
+  "ut_stats": {
+    "framework": "meson test (gtest-based)",
+    "test_suites": [
+      {
+        "name": "libmcpp:libmcpp unit tests",
+        "tests": 1364,
+        "test_suites_count": 95,
+        "passed": 1364,
+        "failed": 0,
+        "duration_seconds": 17.03
+      },
+      {
+        "name": "mcbase:mcbase unit tests",
+        "tests": 1284,
+        "test_suites_count": 77,
+        "passed": 1284,
+        "failed": 0,
+        "duration_seconds": 18.62
+      }
+    ],
+    "total_tests": 2648,
+    "total_passed": 2648,
+    "total_failed": 0,
+    "total_test_suites": 172,
+    "ut_duration_seconds": 18.9
+  },
+  "quick_start_analysis": {
+    "example_executed": true,
+    "example_command": "cd builddir/examples/module_test && ./module_test_example",
+    "result": "success",
+    "output_summary": "Successfully demonstrated module loading for devices, network, protocol, and database modules",
+    "notes": "Lua examples not built (lua5.3 not installed)"
+  },
+  "ttfhw_timeline": {
+    "phase_1_init_seconds": 1,
+    "phase_2_clone_seconds": 1.6,
+    "phase_3_doc_check_seconds": 1,
+    "phase_4_image_selection_seconds": 1,
+    "phase_5_container_start_seconds": 2,
+    "phase_5_5_resource_check_seconds": 1,
+    "phase_6_dependency_install_seconds": 45,
+    "phase_6_meson_setup_seconds": 5,
+    "phase_6_build_seconds": 240,
+    "phase_7_ut_seconds": 18.9,
+    "phase_8_quickstart_seconds": 3,
+    "total_attempt_duration_seconds": 319.5
+  },
+  "attempt_log": {
+    "total_attempts": 8,
+    "timeout_reached": false,
+    "total_attempt_duration_seconds": 319.5,
+    "attempts": [
+      {
+        "sequence": 1,
+        "phase": "container_start",
+        "action": "Start Docker container wsk-libmcpp",
+        "command": "docker run -d --name wsk-libmcpp -v ... swr.cn-north-4.myhuaweicloud.com/openubmc/ubuntu:24.04.2_26.03 sleep infinity",
+        "result": "success",
+        "output": "Container 85317a0bfdf0 started",
+        "duration_seconds": 2
+      },
+      {
+        "sequence": 2,
+        "phase": "resource_check",
+        "action": "Detect available memory and calculate safe concurrency",
+        "command": "free -m && nproc",
+        "result": "success",
+        "output": "CPU=20, AvailableMemory=14GB, RecommendedJobs=4",
+        "duration_seconds": 1
+      },
+      {
+        "sequence": 3,
+        "phase": "dependency",
+        "action": "Install build dependencies via apt",
+        "command": "apt-get install -y libboost-all-dev libgtest-dev ninja-build pkg-config libdbus-1-dev libglib2.0-dev meson cmake g++",
+        "result": "success",
+        "output": "All dependencies installed successfully",
+        "duration_seconds": 45
+      },
+      {
+        "sequence": 4,
+        "phase": "build",
+        "action": "Meson setup build directory",
+        "command": "meson setup builddir",
+        "result": "success",
+        "output": "Build targets in project: 28. Subproject mcbase: YES. WARNING: Lua not found, Lua modules will not be built",
+        "duration_seconds": 5
+      },
+      {
+        "sequence": 5,
+        "phase": "build",
+        "action": "Build all targets with ninja -j 4",
+        "command": "ninja -j 4 -C builddir",
+        "result": "success",
+        "output": "[372/372] All targets built successfully",
+        "duration_seconds": 240
+      },
+      {
+        "sequence": 6,
+        "phase": "ut",
+        "action": "Run meson test suite",
+        "command": "meson test -C builddir",
+        "result": "success",
+        "output": "Ok: 2, Fail: 0. libmcpp: 1364 tests passed. mcbase: 1284 tests passed. Total: 2648/2648 passed.",
+        "duration_seconds": 18.9
+      },
+      {
+        "sequence": 7,
+        "phase": "quickstart",
+        "action": "Run module_test example",
+        "command": "cd builddir/examples/module_test && ./module_test_example",
+        "result": "success",
+        "output": "Successfully demonstrated module loading for devices, network, protocol, database modules",
+        "duration_seconds": 3
+      },
+      {
+        "sequence": 8,
+        "phase": "report",
+        "action": "Generate verification report",
+        "command": "cat > /workspace/verification_report.json",
+        "result": "success",
+        "output": "Report generated",
+        "duration_seconds": 1
+      }
+    ]
+  },
+  "overall": {
+    "result": "success",
+    "buildable": true,
+    "testable": true,
+    "example_runnable": true,
+    "timeout_reached": false,
+    "summary": "libmcpp (openUBMC) build verification completed successfully. All 372 build targets compiled, 2648 unit tests passed (0 failures), and example program ran successfully. Build used meson+ninja with 4 concurrent jobs on 20-core/14GB container. Optional Lua modules skipped due to missing lua5.3 dependency."
+  }
+}
